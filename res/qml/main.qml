@@ -24,7 +24,6 @@ ApplicationWindow {
 
     Column {
         id: content
-
         anchors.fill: parent
 
         move: Transition {
@@ -36,7 +35,6 @@ ApplicationWindow {
 
         Rectangle {
             id: toolbar
-
             color: Theme.toolbarBackgroundColor
             height: 36
             radius: 1
@@ -47,14 +45,12 @@ ApplicationWindow {
 
                 Skin.Button {
                     id: show4DecksButton
-
                     activeColor: Theme.white
                     checkable: true
                     text: "4 Decks"
                 }
                 Skin.Button {
                     id: maximizeLibraryButton
-
                     activeColor: Theme.white
                     checkable: true
                     text: "Library"
@@ -65,7 +61,6 @@ ApplicationWindow {
 
                     Mixxx.ControlProxy {
                         id: showMaximizedLibrary
-
                         group: "[Skin]"
                         key: "show_maximized_library"
 
@@ -76,21 +71,18 @@ ApplicationWindow {
                 }
                 Skin.Button {
                     id: showEffectsButton
-
                     activeColor: Theme.white
                     checkable: true
                     text: "Effects"
                 }
                 Skin.Button {
                     id: showAuxButton
-
                     activeColor: Theme.white
                     checkable: true
                     text: "Aux"
                 }
                 Skin.Button {
                     id: showSamplersButton
-
                     activeColor: Theme.white
                     checkable: true
                     text: "Sampler"
@@ -100,14 +92,12 @@ ApplicationWindow {
                 }
                 Skin.Button {
                     id: editDeckButton
-
                     activeColor: Theme.white
                     checkable: true
                     text: "Edit"
                 }
                 Skin.Button {
                     id: showDevToolsButton
-
                     activeColor: Theme.white
                     checkable: true
                     checked: devToolsWindow.visible
@@ -122,14 +112,12 @@ ApplicationWindow {
 
                     DeveloperToolsWindow {
                         id: devToolsWindow
-
                         height: 480
                         width: 640
                     }
                 }
                 Skin.Button {
                     id: showPreferencesButton
-
                     activeColor: Theme.white
                     checked: settingsPopup.opened
                     icon.height: 16
@@ -150,7 +138,6 @@ ApplicationWindow {
         }
         SplitView {
             id: splitView
-
             height: parent.height - y
             orientation: Qt.Vertical
             width: parent.width
@@ -190,12 +177,11 @@ ApplicationWindow {
 
             Item {
                 id: waveforms
-
                 SplitView.fillHeight: !library.active
                 SplitView.preferredHeight: library.active ? 120 : undefined
                 visible: !root.maximizeLibrary
 
-                FadeBehavior on visible {
+                FadeBehavior on visible  {
                     fadeTarget: waveforms
                 }
 
@@ -213,7 +199,7 @@ ApplicationWindow {
                         Skin.WaveformDisplay {
                             group: deck3waveform.group
 
-                            FadeBehavior on visible {
+                            FadeBehavior on visible  {
                                 fadeTarget: deck3waveform
                             }
                         }
@@ -221,7 +207,6 @@ ApplicationWindow {
                 }
                 Skin.WaveformDisplay {
                     id: deck1waveform
-
                     anchors.top: root.show4decks ? deck3waveform.bottom : parent.top
                     group: "[Channel1]"
                     height: parent.height / (root.show4decks ? 4 : 2)
@@ -229,7 +214,6 @@ ApplicationWindow {
                 }
                 Skin.WaveformDisplay {
                     id: deck2waveform
-
                     anchors.bottom: root.show4decks ? deck4waveform.top : parent.bottom
                     group: "[Channel2]"
                     height: parent.height / (root.show4decks ? 4 : 2)
@@ -249,7 +233,7 @@ ApplicationWindow {
                         Skin.WaveformDisplay {
                             group: deck4waveform.group
 
-                            FadeBehavior on visible {
+                            FadeBehavior on visible  {
                                 fadeTarget: deck4waveform
                             }
                         }
@@ -307,19 +291,17 @@ ApplicationWindow {
 
                 Deck {
                     id: deck1
-
-                    anchors.top: parent.top
                     anchors.right: mixer.left
+                    anchors.top: parent.top
                     editMode: root.editDeck
                     group: "[Channel1]"
                     height: root.maximizeLibrary ? 80 : root.show4decks ? mixer.height / 2 : mixer.height
                     minimized: root.maximizeLibrary
                     width: (root.width - mixer.width) / 2
 
-                    Behavior on height {
+                    Behavior on height  {
                         SpringAnimation {
                             id: deck1HeightAnimation
-
                             damping: 0.2
                             duration: 500
                             spring: 2
@@ -342,17 +324,15 @@ ApplicationWindow {
                 }
                 Mixer {
                     id: mixer
-
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.top: parent.top
                     groups: [deck1.group, deck2.group, deck3.group, deck4.group]
                     show4decks: root.show4decks
                     visible: !root.maximizeLibrary
 
-                    Behavior on height {
+                    Behavior on height  {
                         SpringAnimation {
                             id: mixerHeightAnimation
-
                             damping: 0.2
                             duration: 500
                             spring: 2
@@ -421,25 +401,23 @@ ApplicationWindow {
                             duration: 200
                         }
                     }
-                    FadeBehavior on visible {
+                    FadeBehavior on visible  {
                         fadeTarget: mixer
                     }
                 }
                 Deck {
                     id: deck2
-
-                    anchors.top: parent.top
                     anchors.left: mixer.right
+                    anchors.top: parent.top
                     editMode: root.editDeck
                     group: "[Channel2]"
                     height: root.maximizeLibrary ? 80 : root.show4decks ? mixer.height / 2 : mixer.height
                     minimized: root.maximizeLibrary
                     width: (root.width - mixer.width) / 2
 
-                    Behavior on height {
+                    Behavior on height  {
                         SpringAnimation {
                             id: deck2HeightAnimation
-
                             damping: 0.2
                             duration: 500
                             spring: 2
@@ -468,10 +446,9 @@ ApplicationWindow {
                     active: root.show4decks
                     height: active ? (root.maximizeLibrary ? 80 : mixer.height / 2) : 0
 
-                    Behavior on height {
+                    Behavior on height  {
                         SpringAnimation {
                             id: deck3HeightAnimation
-
                             damping: 0.2
                             duration: 500
                             spring: 2
@@ -479,11 +456,11 @@ ApplicationWindow {
                     }
                     sourceComponent: Component {
                         Deck {
+                            anchors.bottom: parent.bottom
+                            anchors.left: parent.left
                             editMode: root.editDeck
                             group: deck3.group
                             minimized: root.maximizeLibrary
-                            anchors.bottom: parent.bottom
-                            anchors.left: parent.left
                         }
                     }
                     states: [
@@ -511,10 +488,9 @@ ApplicationWindow {
                     active: root.show4decks
                     height: active ? (root.maximizeLibrary ? 80 : mixer.height / 2) : 0
 
-                    Behavior on height {
+                    Behavior on height  {
                         SpringAnimation {
                             id: deck4HeightAnimation
-
                             damping: 0.2
                             duration: 500
                             spring: 2
@@ -522,11 +498,11 @@ ApplicationWindow {
                     }
                     sourceComponent: Component {
                         Deck {
+                            anchors.bottom: parent.bottom
+                            anchors.right: parent.right
                             editMode: root.editDeck
                             group: deck4.group
                             minimized: root.maximizeLibrary
-                            anchors.bottom: parent.bottom
-                            anchors.right: parent.right
                         }
                     }
                     states: [
@@ -567,7 +543,6 @@ ApplicationWindow {
                 // }
                 Loader {
                     id: library
-
                     active: root.maximizeLibrary || root.height - mixer.height >= 400
                     height: parent.height - y
                     width: parent.width
@@ -606,7 +581,6 @@ ApplicationWindow {
     }
     Skin.Settings {
         id: settingsPopup
-
         height: Math.max(840, parent.height * 0.7)
         modal: true
         width: Math.max(1400, parent.width * 0.8)
@@ -616,7 +590,7 @@ ApplicationWindow {
         Overlay.modal: Rectangle {
             id: overlayModal
 
-            readonly property bool hasHardwareAcceleration: Mixxx.Config.useAcceleration()
+            readonly property bool hasHardwareAcceleration: Mixxx.Config.useAcceleration
             property real radius: 12
 
             anchors.fill: parent
