@@ -2,6 +2,7 @@
 
 #include <QModelIndex>
 
+#include "engine/engine.h"
 #include "moc_qmlstemsmodel.cpp"
 
 namespace mixxx {
@@ -11,25 +12,25 @@ const QHash<int, QByteArray> kRoleNames = {
         {QmlStemsModel::LabelRole, "label"},
         {QmlStemsModel::ColorRole, "color"},
 };
-}
+} // namespace
 
 QmlStemsModel::QmlStemsModel(
         QObject* pParent)
         : QAbstractListModel(pParent) {
 }
 
-void QmlStemsModel::setStems(QList<StemInfo> stems) {
+void QmlStemsModel::setStems(mixxx::StemInfo stems) {
     beginResetModel();
     m_stems = std::move(stems);
     endResetModel();
 }
 
 QVariant QmlStemsModel::data(const QModelIndex& index, int role) const {
-    if (index.row() < 0 || index.row() >= m_stems.size()) {
+    if (index.row() < 0 || index.row() >= m_stems.isValid()) {
         return QVariant();
     }
 
-    const StemInfo& stemInfo = m_stems.at(index.row());
+    const Stem& stemInfo = m_stems.at(index.row());
 
     switch (role) {
     case QmlStemsModel::LabelRole: {
@@ -47,7 +48,7 @@ int QmlStemsModel::rowCount(const QModelIndex& parent) const {
         return 0;
     }
 
-    return m_stems.size();
+    return mixxx::kMaxSupportedStems;
 }
 
 QHash<int, QByteArray> QmlStemsModel::roleNames() const {
