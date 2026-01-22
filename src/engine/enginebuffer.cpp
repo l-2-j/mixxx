@@ -7,6 +7,7 @@
 #include "control/controlproxy.h"
 #include "control/controlpushbutton.h"
 #include "engine/bufferscalers/enginebufferscalelinear.h"
+#include "engine/bufferscalers/enginebufferscalesignalsmith.h"
 #include "engine/bufferscalers/enginebufferscalest.h"
 #include "engine/cachingreader/cachingreader.h"
 #include "engine/channels/enginechannel.h"
@@ -280,6 +281,7 @@ EngineBuffer::EngineBuffer(const QString& group,
 #ifdef __RUBBERBAND__
     m_pScaleRB = new EngineBufferScaleRubberBand(m_pReadAheadManager);
 #endif
+    m_pScaleSignalSmith = new EngineBufferScaleSignalSmith(m_pReadAheadManager);
     slotKeylockEngineChanged(m_pKeylockEngine->get());
     m_pScaleVinyl = m_pScaleLinear;
     m_pScale = m_pScaleVinyl;
@@ -880,6 +882,9 @@ void EngineBuffer::slotKeylockEngineChanged(double dIndex) {
         m_pScaleKeylock = m_pScaleRB;
         break;
 #endif
+    case KeylockEngine::SignalSmith:
+        m_pScaleKeylock = m_pScaleSignalSmith;
+        break;
     default:
         slotKeylockEngineChanged(static_cast<double>(defaultKeylockEngine()));
         break;
@@ -1232,6 +1237,7 @@ void EngineBuffer::process(CSAMPLE* pOutput, const std::size_t bufferSize) {
 #ifdef __RUBBERBAND__
     m_pScaleRB->setSignal(m_sampleRate, m_channelCount);
 #endif
+    m_pScaleSignalSmith->setSignal(m_sampleRate, m_channelCount);
 
     bool hasStableTrack = m_pTrackLoaded->toBool() && m_iTrackLoading.loadAcquire() == 0;
     if (hasStableTrack && m_pause.tryLock()) {

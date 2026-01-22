@@ -681,10 +681,11 @@ QJSValue MidiController::makeInputHandler(unsigned char status,
         return QJSValue();
     }
 
-    MidiInputMapping inputMapping(
-            midiKey,
-            MidiOption::Script,
-            std::make_shared<QJSValue>(scriptCode));
+    MidiInputMapping inputMapping;
+    // (
+    //         midiKey,
+    //         MidiOption::Script,
+    //         std::make_shared<QJSValue>(scriptCode));
 
     m_pMapping->addInputMapping(inputMapping.key.key, inputMapping);
     // The returned object can be used for disconnecting like this:

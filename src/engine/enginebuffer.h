@@ -22,6 +22,7 @@
 #ifdef __RUBBERBAND__
 #include "engine/bufferscalers/enginebufferscalerubberband.h"
 #endif
+#include "engine/bufferscalers/enginebufferscalesignalsmith.h"
 
 //for the writer
 #ifdef __SCALER_DEBUG__
@@ -89,6 +90,7 @@ class EngineBuffer : public EngineObject {
         RubberBandFaster = 1,
         RubberBandFiner = 2,
 #endif
+        SignalSmith = 3,
     };
     Q_ENUM(KeylockEngine);
 
@@ -97,9 +99,9 @@ class EngineBuffer : public EngineObject {
             KeylockEngine::SoundTouch,
 #ifdef __RUBBERBAND__
             KeylockEngine::RubberBandFaster,
-            KeylockEngine::RubberBandFiner
+            KeylockEngine::RubberBandFiner,
 #endif
-    };
+            KeylockEngine::SignalSmith};
 
     EngineBuffer(const QString& group,
             UserSettingsPointer pConfig,
@@ -185,6 +187,8 @@ class EngineBuffer : public EngineObject {
             }
             [[fallthrough]];
 #endif
+        case KeylockEngine::SignalSmith:
+            return tr("Signal Smith");
         default:
 #ifdef __RUBBERBAND__
             return tr("Unknown, using Rubberband (better)");
@@ -204,6 +208,8 @@ class EngineBuffer : public EngineObject {
         case KeylockEngine::RubberBandFiner:
             return EngineBufferScaleRubberBand::isEngineFinerAvailable();
 #endif
+        case KeylockEngine::SignalSmith:
+            return true;
         default:
             return false;
         }
@@ -465,6 +471,7 @@ class EngineBuffer : public EngineObject {
 #ifdef __RUBBERBAND__
     EngineBufferScaleRubberBand* m_pScaleRB;
 #endif
+    EngineBufferScaleSignalSmith* m_pScaleSignalSmith;
 
     // Indicates whether the scaler has changed since the last process()
     bool m_bScalerChanged;
