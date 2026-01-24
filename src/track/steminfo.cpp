@@ -1,6 +1,7 @@
 #include "track/steminfo.h"
 
 #include <qjsonobject.h>
+#include <qstringliteral.h>
 
 #include <QDebugStateSaver>
 
@@ -14,6 +15,13 @@ const QColor StemInfo::kStemDefaultColor[4] = {
         QColor(0xD5, 0x5E, 0x00),
         QColor(0xCC, 0x79, 0xA7),
         QColor(0x56, 0xB4, 0xE9),
+};
+
+const QString StemInfo::kStemDefaultLabel[4] = {
+        QStringLiteral("Drums"),
+        QStringLiteral("Bass"),
+        QStringLiteral("Others"),
+        QStringLiteral("Vocals"),
 };
 
 QByteArray StemInfo::toByteArray() const {
@@ -70,7 +78,7 @@ StemInfo StemInfo::newDefault() {
 
     for (int stemIdx = 0; stemIdx < kMaxSupportedStems; stemIdx++) {
         stemInfo.emplace_back(
-                QStringLiteral("Stem #%1").arg(QString::number(stemIdx + 1)),
+                kStemDefaultLabel[stemIdx],
                 kStemDefaultColor[stemIdx]);
     }
     stemInfo.setMasteringDSP({{

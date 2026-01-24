@@ -117,6 +117,7 @@ class StemInfo : private QList<Stem> {
 
     static constexpr int kSupportedVersion = 1;
     static const QColor kStemDefaultColor[kMaxSupportedStems];
+    static const QString kStemDefaultLabel[kMaxSupportedStems];
 
   private:
     const QList<Stem>& upcast() const {
