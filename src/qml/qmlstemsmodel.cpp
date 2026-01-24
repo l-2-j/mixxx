@@ -26,7 +26,7 @@ void QmlStemsModel::setStems(mixxx::StemInfo stems) {
 }
 
 QVariant QmlStemsModel::data(const QModelIndex& index, int role) const {
-    if (index.row() < 0 || index.row() >= m_stems.isValid()) {
+    if (index.row() < 0 || index.row() >= m_stems.size()) {
         return QVariant();
     }
 

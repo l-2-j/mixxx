@@ -1456,10 +1456,11 @@ TrackPointer TrackDAO::getTrackById(TrackId trackId) const {
             {"beats_version", nullptr},
             {"beats_sub_version", nullptr},
             {"beats", nullptr},
+            {"bpm_lock", nullptr},
+
 #ifdef __STEM__
             {"stems", setTrackStems},
 #endif
-            {"bpm_lock", nullptr},
 
             // Key detection columns are handled by setTrackKey. Do not change the
             // ordering of these columns or put other columns in between them!
