@@ -83,7 +83,11 @@ class StemInfo : private QList<Stem> {
 
     StemInfo(int version = kSupportedVersion)
             : m_version(version) {};
-    StemInfo(Stem first, Stem second, Stem third, Stem fourth, int version = kSupportedVersion)
+    StemInfo(const Stem& first,
+            const Stem& second,
+            const Stem& third,
+            const Stem& fourth,
+            int version = kSupportedVersion)
             : QList<Stem>({first, second, third, fourth}),
               m_masteringDsp({}),
               m_version(version) {
@@ -107,7 +111,7 @@ class StemInfo : private QList<Stem> {
         return m_masteringDsp;
     }
 
-    void setMasteringDSP(MasteringDSP masteringDsp) {
+    void setMasteringDSP(const MasteringDSP& masteringDsp) {
         m_masteringDsp = masteringDsp;
     }
 

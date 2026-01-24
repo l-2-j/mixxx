@@ -4606,7 +4606,7 @@ target_link_libraries(mixxx-lib PRIVATE SoundTouch::SoundTouch)
 
 # TagLib
 if(STEM)
-  # We don't yet have confirmation that TagLib will accept the stem support directly on their library
+  # We don't know yet which version will include the stem support yet, so for not we set it to high irrelevant value
   set(TAGLIB_VERSION 9.9)
 else()
   set(TAGLIB_VERSION 1.11)
@@ -4655,6 +4655,10 @@ if(NOT TagLib_FOUND)
       -$<IF:$<BOOL:${CMAKE_OSX_DEPLOYMENT_TARGET}>,D,U>CMAKE_OSX_DEPLOYMENT_TARGET=${CMAKE_OSX_DEPLOYMENT_TARGET}
       -$<IF:$<BOOL:${CMAKE_OSX_ARCHITECTURES}>,D,U>CMAKE_OSX_ARCHITECTURES=${CMAKE_OSX_ARCHITECTURES}
       -DCMAKE_SYSTEM_PROCESSOR=${CMAKE_SYSTEM_PROCESSOR}
+      -DCMAKE_CXX_FLAGS=${CMAKE_CXX_FLAGS}
+      -DCMAKE_CXX_FLAGS_DEBUG=${CMAKE_CXX_FLAGS_DEBUG}
+      -DCMAKE_CXX_FLAGS_RELEASE=${CMAKE_CXX_FLAGS_RELEASE}
+      -DCMAKE_CXX_FLAGS_RELWITHDEBINFO=${CMAKE_CXX_FLAGS_RELWITHDEBINFO}
       -DCMAKE_SYSTEM_NAME=${CMAKE_SYSTEM_NAME} -DBUILD_TESTING=OFF
     BUILD_COMMAND ${CMAKE_COMMAND} --build . -j${n}
     BUILD_BYPRODUCTS <INSTALL_DIR>/${TAGLIB_LIBRARY}
