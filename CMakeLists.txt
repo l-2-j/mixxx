@@ -4685,6 +4685,13 @@ if(NOT TagLib_FOUND)
     BEFORE
     PRIVATE "${TAGLIB_INSTALL_DIR}/include/taglib"
   )
+  if(BUILD_TESTING)
+    target_include_directories(
+      mixxx-test
+      BEFORE
+      PRIVATE "${TAGLIB_INSTALL_DIR}/include/taglib"
+    )
+  endif()
   target_link_libraries(mixxx-lib PRIVATE mixxx-taglib)
   if(QML)
     target_link_libraries(mixxx-qml-lib PRIVATE mixxx-taglib)
