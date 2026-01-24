@@ -4662,7 +4662,7 @@ if(NOT TagLib_FOUND)
   )
 
   # The include folder needs to already exist, otherwise INTERFACE_INCLUDE_DIRECTORIES will not be propagated
-  file(MAKE_DIRECTORY "${TAGLIB_INSTALL_DIR}/include")
+  file(MAKE_DIRECTORY "${TAGLIB_INSTALL_DIR}/include/taglib")
 
   # Assemble a library based on the external project.
   add_library(mixxx-taglib STATIC IMPORTED)
