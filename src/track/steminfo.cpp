@@ -196,7 +196,7 @@ QDebug operator<<(QDebug dbg, const StemInfo& stemInfo) {
     const QDebugStateSaver saver(dbg);
     dbg = dbg.maybeSpace() << "StemInfo";
     dbg = dbg.nospace() << '{';
-    for (auto stem : stemInfo) {
+    for (const auto& stem : stemInfo) {
         dbg = dbg << stem << ',';
     }
     return dbg << '}';
