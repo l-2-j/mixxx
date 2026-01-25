@@ -4614,10 +4614,21 @@ endif()
 find_package(TagLib ${TAGLIB_VERSION} EXACT)
 if(NOT TagLib_FOUND)
   set(TAGLIB_INSTALL_DIR "${CMAKE_CURRENT_BINARY_DIR}/lib/taglib-install")
-  set(
-    TAGLIB_LIBRARY
-    "lib/${CMAKE_STATIC_LIBRARY_PREFIX}tag${CMAKE_STATIC_LIBRARY_SUFFIX}"
-  )
+  if(WIN32 AND (CMAKE_SYSTEM_PROCESSOR MATCHES "ARM64"))
+    set(
+      TAGLIB_LIBRARY
+      "lib/${CMAKE_SHARED_LIBRARY_PREFIX}tag${CMAKE_SHARED_LIBRARY_SUFFIX}"
+    )
+    set(TAGLIB_BUILD_SHARED_LIBS "ON")
+    set(TAGLIB_ENABLE_STATIC_RUNTIME "OFF")
+  else()
+    set(
+      TAGLIB_LIBRARY
+      "lib/${CMAKE_STATIC_LIBRARY_PREFIX}tag${CMAKE_STATIC_LIBRARY_SUFFIX}"
+    )
+    set(TAGLIB_BUILD_SHARED_LIBS "OFF")
+    set(TAGLIB_ENABLE_STATIC_RUNTIME "ON")
+  endif()
 
   # CMake does not pass lists of paths properly to external projects.
   # This is worked around by changing the list separator.
@@ -4644,7 +4655,8 @@ if(NOT TagLib_FOUND)
     GIT_SUBMODULES "3rdparty/utfcpp"
     GIT_SUBMODULES_RECURSE ON
     CMAKE_ARGS
-      -DBUILD_SHARED_LIBS=OFF -DENABLE_STATIC_RUNTIME=ON
+      -DBUILD_SHARED_LIBS=${TAGLIB_BUILD_SHARED_LIBS}
+      -DENABLE_STATIC_RUNTIME=${TAGLIB_ENABLE_STATIC_RUNTIME}
       -DCMAKE_SKIP_INSTALL_ALL_DEPENDENCY=ON
       -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
       -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
@@ -4696,9 +4708,9 @@ if(NOT TagLib_FOUND)
       PRIVATE "${TAGLIB_INSTALL_DIR}/include/taglib"
     )
   endif()
-  target_link_libraries(mixxx-lib PUBLIC mixxx-taglib)
+  target_link_libraries(mixxx-lib PRIVATE mixxx-taglib)
   if(QML)
-    target_link_libraries(mixxx-qml-lib PUBLIC mixxx-taglib)
+    target_link_libraries(mixxx-qml-lib PRIVATE mixxx-taglib)
   endif()
 else()
   target_link_libraries(mixxx-lib PUBLIC TagLib::TagLib)
