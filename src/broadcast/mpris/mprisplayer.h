@@ -90,6 +90,7 @@ class MprisPlayer : public QObject {
         QStringList artists;
         QString title;
         QString album;
+        QString url;
         int userRating;
         int useCount;
         std::unique_ptr<QTemporaryFile> pCoverArtFile;

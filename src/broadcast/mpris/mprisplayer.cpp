@@ -301,6 +301,7 @@ void MprisPlayer::requestMetadataFromTrack(TrackPointer pTrack, bool requestCove
     m_currentMetadata.album = pTrack->getAlbum();
     m_currentMetadata.artists = {pTrack->getArtist()};
     m_currentMetadata.title = pTrack->getTitle();
+    m_currentMetadata.url = QStringLiteral("file://") + pTrack->getLocation();
     m_currentMetadata.trackDuration = pTrack->getDuration() * 1e6;
     m_currentMetadata.trackPath = QStringLiteral("/org/mixxx/") + pTrack->getId().toString();
     m_currentMetadata.useCount = pTrack->getTimesPlayed();
