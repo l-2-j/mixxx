@@ -4635,7 +4635,7 @@ if(NOT TagLib_FOUND)
   ExternalProject_Add(
     taglib
     GIT_REPOSITORY "https://github.com/acolombier/taglib"
-    GIT_TAG 08292ddb1d9b31a3698eec3c12fc7710135d3e4c
+    GIT_TAG 53419e34acfc14a9a98dac35c333d8dd60b0b9c4
     DOWNLOAD_DIR "${CMAKE_CURRENT_BINARY_DIR}/downloads"
     DOWNLOAD_NAME "taglib-${TAGLIB_VERSION}.tar.gz"
     PREFIX "taglib-${TAGLIB_VERSION}"
