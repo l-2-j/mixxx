@@ -423,6 +423,7 @@ QVariantMap MprisPlayer::getVariantMapMetadata() {
             {"xesam:album", m_currentMetadata.album},
             {"xesam:artist", m_currentMetadata.artists},
             {"xesam:title", m_currentMetadata.title},
+            {"xesam:url", m_currentMetadata.url},
             {"xesam:useCount", m_currentMetadata.useCount},
             {"xesam:userRating", m_currentMetadata.userRating},
     };
@@ -471,4 +472,5 @@ void MprisPlayer::CurrentMetadata::idle(bool autoDjEnabled) {
     album.clear();
     userRating = 0;
     useCount = 0;
+    url.clear();
 }
