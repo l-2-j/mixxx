@@ -4634,8 +4634,8 @@ if(NOT TagLib_FOUND)
   # Currently, we fetch the patched version of 2.1.1 including the submitted feature in https://github.com/taglib/taglib/pull/1299
   ExternalProject_Add(
     taglib
-    GIT_REPOSITORY "https://github.com/acolombier/taglib"
-    GIT_TAG 53419e34acfc14a9a98dac35c333d8dd60b0b9c4
+    GIT_REPOSITORY "https://github.com/taglib/taglib"
+    GIT_TAG 11e3eb05bd8694976d065f37d62ee1a6811daef3
     DOWNLOAD_DIR "${CMAKE_CURRENT_BINARY_DIR}/downloads"
     DOWNLOAD_NAME "taglib-${TAGLIB_VERSION}.tar.gz"
     PREFIX "taglib-${TAGLIB_VERSION}"
@@ -4643,9 +4643,9 @@ if(NOT TagLib_FOUND)
     LIST_SEPARATOR "|"
     GIT_SUBMODULES "3rdparty/utfcpp"
     GIT_SUBMODULES_RECURSE ON
-    GIT_SHALLOW ON
     CMAKE_ARGS
-      -DBUILD_SHARED_LIBS=OFF -DCMAKE_SKIP_INSTALL_ALL_DEPENDENCY=ON
+      -DBUILD_SHARED_LIBS=OFF -DENABLE_STATIC_RUNTIME=ON
+      -DCMAKE_SKIP_INSTALL_ALL_DEPENDENCY=ON
       -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
       -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
       -DCMAKE_PREFIX_PATH=${PIPE_DELIMITED_CMAKE_PREFIX_PATH}
@@ -4696,9 +4696,9 @@ if(NOT TagLib_FOUND)
       PRIVATE "${TAGLIB_INSTALL_DIR}/include/taglib"
     )
   endif()
-  target_link_libraries(mixxx-lib PRIVATE mixxx-taglib)
+  target_link_libraries(mixxx-lib PUBLIC mixxx-taglib)
   if(QML)
-    target_link_libraries(mixxx-qml-lib PRIVATE mixxx-taglib)
+    target_link_libraries(mixxx-qml-lib PUBLIC mixxx-taglib)
   endif()
 else()
   target_link_libraries(mixxx-lib PUBLIC TagLib::TagLib)
