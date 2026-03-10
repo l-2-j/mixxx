@@ -316,6 +316,7 @@ QFuture<void> MprisPlayer::requestMetadataFromTrack(TrackPointer pTrack, bool re
 }
 
 QFuture<void> MprisPlayer::requestCoverArtUrl(TrackPointer pTrack) {
+    return;
     CoverInfo coverInfo = pTrack->getCoverInfoWithLocation();
     if (coverInfo.type == CoverInfoRelative::FILE) {
         return QtConcurrent::run(QThreadPool::globalInstance(), [pTrack, coverInfo, this]() {
