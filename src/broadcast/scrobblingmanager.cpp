@@ -107,7 +107,7 @@ ScrobblingManager::ScrobblingManager(UserSettingsPointer pConfig,
         : m_pPlayerManager(pPlayerManager),
           m_pConfig(pConfig),
           m_pBroadcaster(std::make_unique<MetadataBroadcaster>()),
-          m_pAudibleStrategy(std::make_unique<TotalVolumeThreshold>(this, 0.20)),
+          m_pAudibleStrategy(std::make_unique<TotalVolumeThreshold>(this, 0.01)),
           m_pTimer(make_parented<TrackTimers::GUITickTimer>(this)),
           m_scrobbledAtLeastOnce(false),
           m_GuiTickObject(ConfigKey("[App]", "gui_tick_50ms_period_s")) {
@@ -116,7 +116,7 @@ ScrobblingManager::ScrobblingManager(UserSettingsPointer pConfig,
             this,
             &ScrobblingManager::slotCheckAudibleTracks);
     m_GuiTickObject.connectValueChanged(this, &ScrobblingManager::slotGuiTick);
-    m_pTimer->start(1000);
+    m_pTimer->start(100);
 
 #ifdef __MPRIS__
     if (pConfig->getValue(kEnabledMpris, kEnabledMprisDefault)) {
