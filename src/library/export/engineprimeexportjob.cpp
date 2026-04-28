@@ -39,7 +39,7 @@ const QStringList kSupportedFileTypes = {
         "mp4",
         "ogg",
         "wav",
-        "mp4"};
+        "stem.mp4"};
 
 std::optional<djinterop::musical_key> toDjinteropKey(
         track::io::key::ChromaticKey key) {
