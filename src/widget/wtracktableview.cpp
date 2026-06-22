@@ -613,6 +613,7 @@ void WTrackTableView::showTrackMenu(const QPoint pos, const QModelIndex& index) 
         return;
     }
     m_pTrackMenu->loadTrackModelIndices(indices);
+    m_pTrackMenu->updateMenus();
     m_pTrackMenu->setTrackPropertyName(columnNameOfIndex(index));
 
     saveCurrentIndex();
@@ -1676,7 +1677,7 @@ void WTrackTableView::moveSelection(int delta) {
 
     while (delta != 0) {
         QItemSelectionModel* currentSelection = selectionModel();
-        if (currentSelection->selectedRows().length() > 0) {
+        if (!currentSelection->selectedRows().isEmpty()) {
             if (delta > 0) {
                 // i is positive, so we want to move the highlight down
                 int row = currentSelection->selectedRows().last().row();
